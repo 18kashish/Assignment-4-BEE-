@@ -1,0 +1,185 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\HP> mongod --version
+db version v8.0.3
+Build Info: {
+    "version": "8.0.3",
+    "gitVersion": "89d97f2744a2b9851ddfb51bdf22f687562d9b06",
+    "modules": [],
+    "allocator": "tcmalloc-gperf",
+    "environment": {
+        "distmod": "windows",
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}
+
+PS C:\Users\HP> mongosh --version
+2.3.3
+
+PS C:\Users\HP> mongosh
+Current Mongosh Log ID: 672af2e31044cf134b0d818f
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.3
+Using MongoDB:          8.0.3
+Using Mongosh:          2.3.3
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2024-11-06T09:42:37.841+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use students
+switched to db students
+students> db.students.insertOne({ name: "Alice", age: 20, grade: "B" })
+{
+  acknowledged: true,
+  insertedId: ObjectId('672af3211044cf134b0d8190')
+}
+students> db.students.find()
+[
+  {
+    _id: ObjectId('672af3211044cf134b0d8190'),
+    name: 'Alice',
+    age: 20,
+    grade: 'B'
+  }
+]
+students> db.students.find({ age: { $gt: 18 } })
+[
+  {
+    _id: ObjectId('672af3211044cf134b0d8190'),
+    name: 'Alice',
+    age: 20,
+    grade: 'B'
+  }
+]
+students> db.students.find({ age: { $gt: 18, $lt: 23 } })
+[
+  {
+    _id: ObjectId('672af3211044cf134b0d8190'),
+    name: 'Alice',
+    age: 20,
+    grade: 'B'
+  }
+]
+students> db.students.updateOne({ name: "John" }, { $set: { grade: "A" } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+students> db.students.deleteOne({ name: "Emily" })
+{ acknowledged: true, deletedCount: 0 }
+students> db.students.countDocuments({ grade: "B"})
+1
+students> db.students.find()
+[
+  {
+    _id: ObjectId('672af3211044cf134b0d8190'),
+    name: 'Alice',
+    age: 20,
+    grade: 'B'
+  }
+]
+students>  db.students.insertOne({name:"John",age:18,grade:"C"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('672af47a1044cf134b0d8191')
+}
+students> db.students.updateOne({ name: "John" }, { $set: { grade: "A" } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+students>  db.students.insertOne({name:"Emily",age:20,grade:"D"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('672af4bd1044cf134b0d8192')
+}
+students> db.students.find()
+[
+  {
+    _id: ObjectId('672af3211044cf134b0d8190'),
+    name: 'Alice',
+    age: 20,
+    grade: 'B'
+  },
+  {
+    _id: ObjectId('672af47a1044cf134b0d8191'),
+    name: 'John',
+    age: 18,
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('672af4bd1044cf134b0d8192'),
+    name: 'Emily',
+    age: 20,
+    grade: 'D'
+  }
+]
+students> db.students.deleteOne({ name: "Emily" })
+{ acknowledged: true, deletedCount: 1 }
+students> db.students.find()
+[
+  {
+    _id: ObjectId('672af3211044cf134b0d8190'),
+    name: 'Alice',
+    age: 20,
+    grade: 'B'
+  },
+  {
+    _id: ObjectId('672af47a1044cf134b0d8191'),
+    name: 'John',
+    age: 18,
+    grade: 'A'
+  }
+]
+students> db.students.countDocuments({ grade: "B"})
+1
+students> db.students.find({}, { name: 1, grade: 1, _id: 0 })
+[ { name: 'Alice', grade: 'B' }, { name: 'John', grade: 'A' } ]
+students> db.students.find().sort({ age: -1 })
+[
+  {
+    _id: ObjectId('672af3211044cf134b0d8190'),
+    name: 'Alice',
+    age: 20,
+    grade: 'B'
+  },
+  {
+    _id: ObjectId('672af47a1044cf134b0d8191'),
+    name: 'John',
+    age: 18,
+    grade: 'A'
+  }
+]
+students> db.students.find().sort({ age: 1 })
+[
+  {
+    _id: ObjectId('672af47a1044cf134b0d8191'),
+    name: 'John',
+    age: 18,
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('672af3211044cf134b0d8190'),
+    name: 'Alice',
+    age: 20,
+    grade: 'B'
+  }
+]
+students>
